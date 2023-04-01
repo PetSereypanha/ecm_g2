@@ -1,0 +1,13 @@
+# customer  table
+    customer_id PK 
+    firstname 
+    lastname 
+    gender
+    username
+    password 
+    create_at
+
+
+    
+
+
