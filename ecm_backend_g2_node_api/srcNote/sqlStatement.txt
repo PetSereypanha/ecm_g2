@@ -10,10 +10,10 @@
     - AND , OR,
     - NULL, NOT NULL
     - LIMIT
-# delete
+# Delete
     - DELETE FROM table_name WHERE condition;
     eg. DELETE FROM customer WHERE customer_id = 2;
-# update
+# Update
     - UPDATE table_name SET col1 = value, col2=value, ... WHERE condition;
     eg. UPDATE customer SET firstname = 'Boro' , lastname = 'Solo' WHERE customer_id = 1
 

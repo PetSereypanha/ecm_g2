@@ -5,6 +5,6 @@ const customer = (app) => { // arrow function
     app.get("/api/customer/get-list",customerContoller.getList)
     app.get("/api/customer/get-one/:id",customerContoller.getOne)
     app.put("/api/customer/update",customerContoller.update)
-    app.delete("/api/customer/remove",customerContoller.remove)
+    app.delete("/api/customer/remove/:id",customerContoller.remove)
 }
 module.exports = customer

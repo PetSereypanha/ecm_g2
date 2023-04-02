@@ -21,4 +21,11 @@
         - install mysql 
         - create config database 
         - get all data from table customer 
+
+# Home Node + Mysql Build CRUD API
+    - getlist
+    - getone
+    - create
+    - Update
+    - remove
     
