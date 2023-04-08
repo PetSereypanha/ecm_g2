@@ -7,6 +7,30 @@
     password 
     create_at
 
+#category
+    category_id PK //CategoryID, categoryId
+    name 
+    description
+    image
+    create_at
+
+#product
+    product_id PK 
+    category_id FK 
+    name 
+    price
+    qauntity,
+    description,
+    image
+    status
+    create_at
+    
+#product_image
+    product_image_id PK 
+    product_id FK
+    image 
+    create_at 
+
 
     
 
