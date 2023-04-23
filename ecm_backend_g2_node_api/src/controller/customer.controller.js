@@ -133,7 +133,7 @@ const login = (req,res) => {
                     })
                 }else{
                     res.json({
-                        messsage : "Login success!",
+                        error:true,
                         messsage:{
                             password : "Password incorrect!"
                         }

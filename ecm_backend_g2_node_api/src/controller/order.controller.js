@@ -120,27 +120,36 @@ const create = (req,res) => {
             db.query(sql,[customer_id],(error1,rows1)=>{
                 if(!error1){
                     var data = []
-                    // data = rows1
-                    data = [
-                        {
-                            name : "Macbook Pro 2022",
-                            price :2000,
-                            quantity : 1,
-                            total : 2000
-                        },
-                        {
-                            name : "IPhone X",
-                            price :300,
-                            quantity : 2,
-                            total : 600
-                        },
-                    ]
+                    data = rows1
+                    // data = [
+                    //     {
+                    //         name : "Macbook Pro 2022",
+                    //         price :2000,
+                    //         quantity : 1,
+                    //         total : 2000
+                    //     },
+                    //     {
+                    //         name : "IPhone X",
+                    //         price :300,
+                    //         quantity : 2,
+                    //         total : 600
+                    //     },
+                    // ]
 
                     var sqlOrderProduct = "INSERT INTO order_product (order_id, name,  price, qauntity, total ) VALUES (?,?,?,?,?)"
                     data.map((item,index)=>{
                         var paramsSql = [rows.insertId, item.name, item.price, item.quantity, item.total]
-                        db.query(sqlOrderProduct,paramsSql,(error3,rows3)=>{
-
+                        db.query(sqlOrderProduct,paramsSql,(error2,rows2)=>{
+                            if(!error2){
+                                res.json({
+                                    message:"You have order successfully!"
+                                })
+                            }else{
+                                res.json({
+                                    error:true,
+                                    message:error2
+                                })
+                            }
                         })
                     })
                     

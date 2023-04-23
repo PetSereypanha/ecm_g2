@@ -13,6 +13,8 @@ require("./src/route/product.route")(app)
 require("./src/route/address.route")(app)
 require("./src/route/cart.route")(app)
 require("./src/route/order.route")(app)
+require("./src/route/payment_method.route")(app)
+require("./src/route/order_status.route")(app)
 
 
 // require("./src/route/user.route")(app)

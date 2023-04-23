@@ -19,11 +19,18 @@ const getAll = (req,res) => {
 }
 
 const getCartByCustomer = (req,res) => {
-    var sql = "SELECT cart.cart_id, cart.quanity, product.name, product.price "+
+    var {customer_id} = req.body
+    if(isEmptyOrNull(customer_id)){
+        res.json({
+            error:true,
+            message : "Param customer_id required!"
+        })
+    }
+    var sql = "SELECT cart.customer_id, cart.cart_id, cart.quantity, product.name, product.price "+
     " FROM cart "+
     " INNER JOIN product ON cart.product_id = product.product_id" +
     " WHERE cart.customer_id = ?"
-    db.query(sql,(error,rows)=>{
+    db.query(sql,[customer_id],(error,rows)=>{
         if(error){
             res.json({
                 error : true,
@@ -55,8 +62,8 @@ const getOne = (req,res) => {
 const create = (req,res) => {
     // customer_id FK 
     // product_id FK 
-    // qauntity
-    var {customer_id, product_id, qauntity} = req.body
+    // quantity
+    var {customer_id, product_id, quantity} = req.body
     var message = {}
     if(isEmptyOrNull(customer_id)){
         message.customer_id = "customer_id required!"
@@ -64,8 +71,8 @@ const create = (req,res) => {
     if(isEmptyOrNull(product_id)){
         message.product_id = "product_id required!"
     }
-    if(isEmptyOrNull(qauntity)){
-        message.qauntity = "qauntity required!"
+    if(isEmptyOrNull(quantity)){
+        message.quantity = "quantity required!"
     }
     if(Object.keys(message).length > 0 ){
         res.json({
@@ -74,8 +81,8 @@ const create = (req,res) => {
         })
         return
     }
-    var sql = "INSERT INTO `cart` (customer_id, product_id, qauntity) VALUES (?,?,?)"
-    var sqlParam = [customer_id, product_id, qauntity]
+    var sql = "INSERT INTO `cart` (customer_id, product_id, quantity) VALUES (?,?,?)"
+    var sqlParam = [customer_id, product_id, quantity]
     db.query(sql,sqlParam,(error,rows)=>{
         if(error){
             res.json({
@@ -92,7 +99,7 @@ const create = (req,res) => {
 }
 
 const update = (req,res) => {
-    var {customer_id, product_id, qauntity, cart_id} = req.body
+    var {customer_id, product_id, quantity, cart_id} = req.body
     var message = {}
     if(isEmptyOrNull(cart_id)){
         message.cart_id = "cart_id required!"
@@ -103,8 +110,8 @@ const update = (req,res) => {
     if(isEmptyOrNull(product_id)){
         message.product_id = "product_id required!"
     }
-    if(isEmptyOrNull(qauntity)){
-        message.qauntity = "qauntity required!"
+    if(isEmptyOrNull(quantity)){
+        message.quantity = "quantity required!"
     }
     if(Object.keys(message).length > 0 ){
         res.json({
@@ -113,8 +120,8 @@ const update = (req,res) => {
         })
         return
     }
-    var sql = "UPDATE `cart` SET customer_id=?, product_id=?, qauntity=? WHERE cart_id = ?"
-    var sqlParam = [customer_id, product_id, qauntity, cart_id]
+    var sql = "UPDATE `cart` SET customer_id=?, product_id=?, quantity=? WHERE cart_id = ?"
+    var sqlParam = [customer_id, product_id, quantity, cart_id]
     db.query(sql,sqlParam,(error,rows)=>{
         if(error){
             res.json({

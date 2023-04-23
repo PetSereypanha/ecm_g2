@@ -49,7 +49,7 @@
     cart_id PK 
     customer_id FK 
     product_id FK 
-    qauntity 
+    quantity 
     create_at 
 
 #order 
@@ -83,6 +83,7 @@
     name 
     code 
     status
+    sort_order 
     create_at
 
     ABA, Wing....
