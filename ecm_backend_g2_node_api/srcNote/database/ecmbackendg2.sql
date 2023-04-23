@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2023 at 03:02 PM
+-- Generation Time: Apr 23, 2023 at 04:40 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -53,6 +53,15 @@ CREATE TABLE `cart` (
   `quantity` int(6) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `create_at`) VALUES
+(1, 1, 1, 1, '2023-04-23 14:07:29'),
+(2, 1, 2, 2, '2023-04-23 14:08:00'),
+(3, 2, 1, 1, '2023-04-23 14:12:58');
 
 -- --------------------------------------------------------
 
@@ -170,7 +179,8 @@ CREATE TABLE `payment_method` (
   `payment_method_id` int(11) NOT NULL,
   `name` varchar(120) NOT NULL,
   `code` varchar(120) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `sort_order` int(6) NOT NULL DEFAULT '0',
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -310,7 +320,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`
