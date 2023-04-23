@@ -10,6 +10,10 @@ app.get("/",(req,res)=>{ // localhost:8080/
 require("./src/route/customer.route")(app)
 require("./src/route/category.route")(app)
 require("./src/route/product.route")(app)
+require("./src/route/address.route")(app)
+require("./src/route/cart.route")(app)
+require("./src/route/order.route")(app)
+
 
 // require("./src/route/user.route")(app)
 // require("./src/route/product.route")(app)

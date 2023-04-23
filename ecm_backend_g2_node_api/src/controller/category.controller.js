@@ -16,6 +16,7 @@ const getAll = (req,res) => {
     })
     
 }
+
 const getOne = (req,res) => {
     var {id} = req.params
     db.query("SELECT * FROM category WHERE category_id = ?",[id],(error,rows)=>{
@@ -60,6 +61,7 @@ const create = (req,res) => {
     })
     
 }
+
 const update = (req,res) => {
     var {category_id,name,description,image} = req.body
     if(name == null || name == ""){

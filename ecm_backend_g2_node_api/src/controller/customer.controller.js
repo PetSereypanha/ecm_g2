@@ -1,10 +1,12 @@
 
 const db = require("../config/db.cofig")
+const bcript = require("bcrypt")
 
 const create = (req,res) => {
     var body = req.body;
+    var password = bcript.hashSync(body.password,10)
     var sqlInsert = "INSERT INTO customer (firstname,lastname,gender,username,password) VALUES (?,?,?,?,?)"
-    var paramInsert = [body.firstname, body.lastname, body.gender, body.username, body.password]
+    var paramInsert = [body.firstname, body.lastname, body.gender, body.username, password]
     db.query(sqlInsert,paramInsert,(error,rows)=>{
         if(error){
             res.json({
@@ -92,10 +94,63 @@ const remove = (req,res) => {
     })
 }
 
+const login = (req,res) => {
+    var {password,username} = req.body
+    var messsage = {}
+    if(password == null || password == ""){
+        messsage.password = "Please fill in password!"
+    }
+    if(username == null || username == "" ){
+        messsage.username = "Please fill in username!"
+    }
+    if(Object.keys(messsage).length > 0){
+        res.json({
+            error : true,
+            messsage : messsage
+        })
+        return 
+    }
+    //username //has or not
+    //password
+    db.query("SELECT * FROM customer WHERE username = ?",[username],(error,rows)=>{
+        if(!error){
+            if(rows.length == 0){ // mean than username does not exist
+                res.json({
+                    error : true,
+                    messsage : {
+                        username : "Username does not exist!"
+                    }
+                })
+            }else{ // username is avaliable in table
+                var customer = rows[0]
+                var passwordDb = customer.password
+                var isCorrectPassword = bcript.compareSync(password,passwordDb) // true / false
+                if(isCorrectPassword){
+                    delete customer.password
+                    res.json({
+                        messsage : "Login success!",
+                        profile:customer
+                    })
+                }else{
+                    res.json({
+                        messsage : "Login success!",
+                        messsage:{
+                            password : "Password incorrect!"
+                        }
+                    })
+                }
+            }
+        }
+    })
+
+
+}
+
 module.exports = {
     create,
     getList,
     getOne,
     update,
-    remove
+    remove,
+    login
 }
